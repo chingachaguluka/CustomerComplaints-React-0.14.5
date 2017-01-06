@@ -1,0 +1,15 @@
+html {
+    font-family: 'Roboto', sans-serif;
+}
+
+form button {
+    margin: 5px;
+}
+
+button {
+    margin: 10px;
+}
+
+#body {
+    padding: 70px;
+}
