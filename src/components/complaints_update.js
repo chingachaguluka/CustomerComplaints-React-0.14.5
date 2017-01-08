@@ -9,7 +9,7 @@ import { fetchComplaint, updateComplaint } from '../actions/index';
 class ComplaintsUpdate extends Component {
     componentWillMount() {
         this.props.fetchComplaint(this.props.params.id);
-        console.log(this.props.complaint);
+        //console.log(this.props.complaint);
     }
 
     //handleSubmit() {
@@ -29,7 +29,7 @@ class ComplaintsUpdate extends Component {
         return (
             <div>
                 <h4 className="text-xs-center">Log complaint</h4>
-                <form className="form-horizontal" onSubmit={handleSubmit(this.props.updateComplaint(props, this.props.params.id))}>
+                <form className="form-horizontal" onSubmit={handleSubmit(this.props.updateComplaint)}>
                     <div className="form-group">
                         <label htmlFor="name" className="col-sm-2 control-label">Customer's Name</label>
                         <div className="col-sm-10">
@@ -88,7 +88,7 @@ class ComplaintsUpdate extends Component {
 
                     
                     <button type="submit" className="btn btn-primary">Save</button>
-                    <Link to="/">
+                    <Link to={`/complaints/${complaint.id}`}>
                         <button className="btn btn-danger" >Cancel</button>
                     </Link>
                     
