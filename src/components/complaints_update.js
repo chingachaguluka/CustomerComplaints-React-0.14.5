@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { reduxForm } from 'redux-form';
 import { Link } from 'react-router';
 import { fetchComplaint, updateComplaint } from '../actions/index';
+import { getFormValues } from 'redux-form';
 
 
 
@@ -9,13 +10,15 @@ import { fetchComplaint, updateComplaint } from '../actions/index';
 class ComplaintsUpdate extends Component {
     componentWillMount() {
         this.props.fetchComplaint(this.props.params.id);
-        //console.log(this.props.complaint);
     }
 
-    //handleSubmit() {
-    //    return updateComplaint(props, this.props.params.id);
-    //    console.log("Handle submit clicked...");
-    //}
+     onSaveClick(props) {
+         formValues = getFormValues('ComplaintsUpdateForm');
+         console.log("Evaluate values of form on submit")
+         console.log(formValues);
+         this.props.updateComplaint(props, this.props.params.id);
+    }
+
 
     render() {
         
@@ -26,16 +29,17 @@ class ComplaintsUpdate extends Component {
             return <div>Loading...</div>
         }
 
+       
         return (
             <div>
-                <h4 className="text-xs-center">Log complaint</h4>
-                <form className="form-horizontal" onSubmit={handleSubmit(this.props.updateComplaint)}>
+                <h3 className="text-xs-center">Log complaint</h3>
+                <form className="form-horizontal" onSubmit={handleSubmit(this.onSaveClick.bind(this))}>
                     <div className="form-group">
                         <label htmlFor="name" className="col-sm-2 control-label">Customer's Name</label>
                         <div className="col-sm-10">
                             <input type="text" className="form-control" id="name" defaultValue={complaint.name}  />
                         </div>
-                        {complaint.name}
+                        
                     </div>
                     <div className="form-group">
                         <label htmlFor="phone" className="col-sm-2 control-label">Phone(s)</label>

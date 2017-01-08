@@ -42,7 +42,8 @@ export function createComplaint(props) {
 export function updateComplaint(props, id) {
     const url = `${ROOT_URL}complaints/${id}`;
     let request = axios.put(url, props);
-    console.log(request);
+    console.log(url);
+    console.log(props);
 
     return {
         type: UPDATE_COMPLAINT,

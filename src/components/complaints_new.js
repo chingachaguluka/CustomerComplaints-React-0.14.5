@@ -6,10 +6,6 @@ import { createComplaint } from '../actions/index';
 
 class ComplaintsNew extends Component {
 
-    //handleSubmit(formValues) {
-    //    this.props.createComplaint;
-    //}   
-
     render() {
 
         const { fields: {name, phone, email, branch, dateLogged, status, 
