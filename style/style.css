@@ -6,10 +6,14 @@ form button {
     margin: 5px;
 }
 
-button {
-    margin: 10px;
+a button {
+    margin: 5px;
 }
 
 #body {
     padding: 70px;
+}
+
+li.borderless {
+    border: 0 none;
 }

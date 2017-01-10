@@ -21,9 +21,9 @@ class ComplaintsShow extends Component {
         }
 
         return (
-            <div className="panel panel-default">
+            <div className="panel panel-primary">
                 <div className="panel-heading">
-                    <h3 className="panel-title">{complaint.name}<span className="text-right"> Complaint#: {complaint.id}</span></h3>
+                    <h3 className="panel-title">{complaint.name}<span className="text-right pull-right"> Complaint#: {complaint.id}</span></h3>
                 </div>
                 <div className="panel-body">
                     <div className="row">
@@ -91,7 +91,7 @@ class ComplaintsShow extends Component {
                         </div>
                     </div><br/>
                     <div className="row">
-                        <div className="col-xs-9 offset-md-4">
+                        <div className="col-sm-9 col-sm-offset-3">
                             <Link to={`/complaints/update/${complaint.id}`} >
                                 <button type="button" className="btn btn-primary">Update</button>
                             </Link>
