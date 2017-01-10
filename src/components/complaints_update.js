@@ -89,11 +89,12 @@ class ComplaintsUpdate extends Component {
                         </div>
                     </div>
 
-                    
-                    <button type="submit" className="btn btn-primary">Save</button>
-                    <Link to={`/complaints/${complaint.id}`}>
-                        <button className="btn btn-danger" >Cancel</button>
-                    </Link>
+                    <div className="col-sm-9 col-sm-offset-2"> 
+                        <button type="submit" className="btn btn-primary">Save</button>
+                        <Link to={`/complaints/${complaint.id}`}>
+                            <button className="btn btn-danger" >Cancel</button>
+                        </Link>
+                    </div>
                     
                 </form>
             </div>
