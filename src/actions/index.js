@@ -5,6 +5,7 @@ export const FETCH_COMPLAINTS = 'FETCH_COMPLAINTS';
 export const FETCH_COMPLAINT = 'FETCH_COMPLAINT';
 export const CREATE_COMPLAINT = 'CREATE_COMPLAINT';
 export const UPDATE_COMPLAINT = 'UPDATE_COMPLAINT';
+export const DELETE_COMPLAINT = 'DELETE_COMPLAINT';
 
 const ROOT_URL = 'http://localhost:2403/';
 
@@ -50,3 +51,13 @@ export function updateComplaint(props, id) {
     }
 }
 
+export function deleteComplaint(id) {
+    const url = `${ROOT_URL}complaints/${id}`;;
+    let request = axios.delete(url);
+    //console.log(props);
+
+    return {
+        type: DELETE_COMPLAINT,
+        payload: request
+    }
+}

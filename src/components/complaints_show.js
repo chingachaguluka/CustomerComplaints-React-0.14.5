@@ -1,15 +1,27 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import { fetchComplaint } from '../actions/index';
+import { fetchComplaint, deleteComplaint } from '../actions/index';
 
 const buttonStyle = {
   margin: 12,
 };
 
 class ComplaintsShow extends Component {
+    
+    static contextTypes = {
+        router: PropTypes.object
+    }
+    
     componentWillMount() {
         this.props.fetchComplaint(this.props.params.id);
+    }
+
+    handleDeleteClick() {
+        this.props.deleteComplaint(this.props.params.id)
+            .then( () => {
+                this.context.router.push('/');
+            });
     }
 
     render() {
@@ -98,6 +110,7 @@ class ComplaintsShow extends Component {
                             <Link to="/">
                                 <button type="button" className="btn btn-default">Return</button>
                             </Link>
+                            <button type="button" className="btn btn-danger pull-right" onClick={this.handleDeleteClick.bind(this)}>Delete</button>
                         </div>
                     </div>
                 </div>
@@ -112,4 +125,4 @@ function mapStateToProps(state) {
     return { complaint: state.complaints.complaint };
 }
 
-export default connect(mapStateToProps, { fetchComplaint })(ComplaintsShow);
+export default connect(mapStateToProps, { fetchComplaint, deleteComplaint })(ComplaintsShow);
