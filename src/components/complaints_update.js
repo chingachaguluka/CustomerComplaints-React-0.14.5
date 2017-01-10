@@ -31,7 +31,7 @@ class ComplaintsUpdate extends Component {
        
         return (
             <div>
-                <h3 className="text-xs-center">Log complaint</h3>
+                <h3 className="text-center">Update complaint</h3>
                 <form className="form-horizontal" onSubmit={handleSubmit(this.onSaveClick.bind(this))}>
                     <div className="form-group">
                         <label htmlFor="name" className="col-sm-2 control-label">Customer's Name</label>
