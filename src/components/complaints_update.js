@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
 import { Link } from 'react-router';
 import { fetchComplaint, updateComplaint } from '../actions/index';
@@ -8,6 +8,11 @@ import { getFormValues } from 'redux-form';
 
 
 class ComplaintsUpdate extends Component {
+    
+    static contextTypes = {
+        router: PropTypes.object
+    };
+
     componentWillMount() {
         this.props.fetchComplaint(this.props.params.id);
     }
@@ -15,7 +20,10 @@ class ComplaintsUpdate extends Component {
      onSaveClick(formProps) {
          //console.log("Evaluate values of form on submit")
          //console.log(this.props.formValues);
-         this.props.updateComplaint(formProps, this.props.params.id);
+         this.props.updateComplaint(formProps, this.props.params.id)
+            .then( () => {
+                this.context.router.push(`/complaints/${this.props.params.id}`);
+            });
     }
 
 

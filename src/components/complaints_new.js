@@ -1,10 +1,21 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import { reduxForm } from 'redux-form';
 import { createComplaint } from '../actions/index';
 
 
 class ComplaintsNew extends Component {
+
+    static contextTypes = {
+        router: PropTypes.object
+    };
+
+    onSubmit (props) {
+        this.props.createComplaint(props)
+            .then( () => {
+                this.context.router.push('/');
+            });
+    }
 
     render() {
 
@@ -14,7 +25,7 @@ class ComplaintsNew extends Component {
         return (
             <div>
                 <h3 className="text-center">Enter complaint</h3>
-                <form className="form-horizontal" onSubmit={handleSubmit(this.props.createComplaint)}>
+                <form className="form-horizontal" onSubmit={handleSubmit(this.onSubmit.bind(this))}>
                     <div className="form-group">
                         <label className="col-sm-2 control-label">Customer's Name</label>
                         <div className="col-sm-10">
