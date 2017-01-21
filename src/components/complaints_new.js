@@ -3,11 +3,13 @@ import { Link } from 'react-router';
 import { reduxForm } from 'redux-form';
 import { createComplaint } from '../actions/index';
 
-import Select from 'react-select';
-import 'react-select/dist/react-select.css';
+import 'react-widgets/dist/css/react-widgets.css';
+import DropdownList from 'react-widgets/lib/DropdownList';
 
-import DropdownList from 'react-widgets/lib/DropdownList'
-import 'react-widgets/dist/css/react-widgets.css'
+//import Calendar from 'react-widgets/lib/Calendar';
+//import Globalize from 'globalize';
+//import GlobalizePlugin from 'globalize-webpack-plugin';
+//import globalizeLocalizer from 'react-widgets/lib/localizers/globalize';
 
 class ComplaintsNew extends Component {
 
@@ -26,14 +28,9 @@ class ComplaintsNew extends Component {
 
         const { fields: {name, phone, email, branch, dateLogged, status, 
             description, resolverComments, verifierComments}, handleSubmit, createComplaint } = this.props;
+        const branches = ['Lilongwe', 'Limbe', 'Malangalanga', 'Mzuzu'];
+        const complaintStatus = ['Unattended', 'Customer Contacted', 'Resolved', 'Closed']
 
-        const branches = [
-            { value: 'Lilongwe', label: 'Lilongwe' },
-            { value: 'Limbe', label: 'Limbe' },
-            { value: 'Malangalanga', label: 'Malangalanga' },
-            { value: 'Mzuzu', label: 'Mzuzu' },
-        ];
-        const branches1 = ['Lilongwe', 'Limbe', 'Malangalanga', 'Mzuzu'];    
 
         return (
             <div>
@@ -57,41 +54,26 @@ class ComplaintsNew extends Component {
                             <input type="text" className="form-control" {...email} />
                         </div>
                     </div>
+
                     <div className="form-group">
                         <label className="col-sm-2 control-label">Branch</label>
                         <div className="col-sm-10">
-                            <input type="text" className="form-control" {...branch} />
-                        </div>
-                    </div>
-                    <div className="form-group">
-                        <label className="col-sm-2 control-label">Branch</label>
-                        <div className="col-sm-10">
-                            <Select
-                                name="branch1"
-                                value="Lilongwe"
-                                options={branches}
-                            />
+                            <DropdownList data={branches} {...branch} />
                         </div>    
                     </div>
-                    <div className="form-group">
-                        <label className="col-sm-2 control-label">Branch</label>
-                        <div className="col-sm-10">
-                            <DropdownList
-                                data={branches1}
-                            />
-                        </div>    
-                    </div>
+                    
                     <div className="form-group">
                         <label className="col-sm-2 control-label">Logging Date</label>
                         <div className="col-sm-10">
                             <input type="text" className="form-control" {...dateLogged}  />
                         </div>
                     </div>
+
                     <div className="form-group">
                         <label className="col-sm-2 control-label">Status</label>
                         <div className="col-sm-10">
-                            <input type="text" className="form-control" {...status} />
-                        </div>
+                            <DropdownList data={complaintStatus} {...status} />
+                        </div>    
                     </div>
                     <div className="form-group">
                         <label className="col-sm-2 control-label">Description</label>

@@ -4,7 +4,8 @@ import { Link } from 'react-router';
 import { fetchComplaint, updateComplaint } from '../actions/index';
 import { getFormValues } from 'redux-form';
 
-
+import 'react-widgets/dist/css/react-widgets.css';
+import DropdownList from 'react-widgets/lib/DropdownList';
 
 
 class ComplaintsUpdate extends Component {
@@ -31,6 +32,8 @@ class ComplaintsUpdate extends Component {
         
         const { fields: {name, phone, email, branch, dateLogged, status, description, 
             resolverComments, verifierComments}, handleSubmit, complaint } = this.props;
+        const branches = ['Lilongwe', 'Limbe', 'Malangalanga', 'Mzuzu'];
+        const complaintStatus = ['Unattended', 'Customer Contacted', 'Resolved', 'Closed']
 
         {/*if(!complaint) {
             return <div>Loading...</div>
@@ -60,11 +63,12 @@ class ComplaintsUpdate extends Component {
                             <input type="text" className="form-control" id="email" {...email} />
                         </div>
                     </div>
+
                     <div className="form-group">
-                        <label htmlFor="branch" className="col-sm-2 control-label">Branch</label>
+                        <label className="col-sm-2 control-label">Branch</label>
                         <div className="col-sm-10">
-                            <input type="text" className="form-control" id="branch" {...branch}  />
-                        </div>
+                            <DropdownList data={branches} {...branch} />
+                        </div>    
                     </div>
                     <div className="form-group">
                         <label htmlFor="dateLogged" className="col-sm-2 control-label">Logging Date</label>
@@ -72,12 +76,14 @@ class ComplaintsUpdate extends Component {
                             <input type="text" className="form-control" id="dateLogged" {...dateLogged}  />
                         </div>
                     </div>
+
                     <div className="form-group">
-                        <label htmlFor="status" className="col-sm-2 control-label">Status</label>
+                        <label className="col-sm-2 control-label">Status</label>
                         <div className="col-sm-10">
-                            <input type="text" className="form-control" id="status" {...status}  />
-                        </div>
+                            <DropdownList data={complaintStatus} {...status} />
+                        </div>    
                     </div>
+
                     <div className="form-group">
                         <label htmlFor="description" className="col-sm-2 control-label">Description</label>
                         <div className="col-sm-10">
