@@ -36,16 +36,22 @@ class ComplaintsNew extends Component {
             <div>
                 <h3 className="text-center">Enter complaint</h3>
                 <form className="form-horizontal" onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-                    <div className="form-group">
+                    <div className={`form-group ${name.touched && name.invalid ? 'has-error' : '' }`}>
                         <label className="col-sm-2 control-label">Customer's Name</label>
                         <div className="col-sm-10">
                             <input type="text" className="form-control" {...name}  />
                         </div>
+                        <div className="text-help col-sm-10 col-sm-offset-2">
+                            {name.touched ? name.error : ""}
+                        </div>
                     </div>
-                    <div className="form-group">
+                    <div className={`form-group ${phone.touched && phone.invalid ? 'has-error' : '' }`}>
                         <label className="col-sm-2 control-label">Phone(s)</label>
                         <div className="col-sm-10">
                             <input type="text" className="form-control" {...phone} />
+                        </div>
+                        <div className="text-help col-sm-10 col-sm-offset-2">
+                            {phone.touched ? phone.error : ""}
                         </div>
                     </div>
                     <div className="form-group">
@@ -55,31 +61,43 @@ class ComplaintsNew extends Component {
                         </div>
                     </div>
 
-                    <div className="form-group">
+                    <div className={`form-group ${branch.touched && branch.invalid ? 'has-error' : '' }`}>
                         <label className="col-sm-2 control-label">Branch</label>
                         <div className="col-sm-10">
                             <DropdownList data={branches} {...branch} />
-                        </div>    
+                        </div>
+                        <div className="text-help col-sm-10 col-sm-offset-2">
+                            {branch.touched ? branch.error : ""}
+                        </div>   
                     </div>
                     
-                    <div className="form-group">
+                    <div className={`form-group ${dateLogged.touched && dateLogged.invalid ? 'has-error' : '' }`}>
                         <label className="col-sm-2 control-label">Logging Date</label>
                         <div className="col-sm-10">
                             <input type="text" className="form-control" {...dateLogged}  />
                         </div>
+                        <div className="text-help col-sm-10 col-sm-offset-2">
+                            {dateLogged.touched ? dateLogged.error : ""}
+                        </div> 
                     </div>
 
-                    <div className="form-group">
+                    <div className={`form-group ${status.touched && status.invalid ? 'has-error' : '' }`}>
                         <label className="col-sm-2 control-label">Status</label>
                         <div className="col-sm-10">
                             <DropdownList data={complaintStatus} {...status} />
-                        </div>    
+                        </div>
+                        <div className="text-help col-sm-10 col-sm-offset-2">
+                            {status.touched ? status.error : ""}
+                        </div>     
                     </div>
-                    <div className="form-group">
+                    <div className={`form-group ${description.touched && description.invalid ? 'has-error' : '' }`}>
                         <label className="col-sm-2 control-label">Description</label>
                         <div className="col-sm-10">
                             <textarea className="form-control" {...description} />
                         </div>
+                        <div className="text-help col-sm-10 col-sm-offset-2">
+                            {description.touched ? description.error : ""}
+                        </div> 
                     </div>
                     <div className="form-group">
                         <label className="col-sm-2 control-label">Comments By Resolver</label>
@@ -107,11 +125,41 @@ class ComplaintsNew extends Component {
     }
 }
 
+function validate (values) {
+    const errors = {};
+
+    if (!values.name) {
+        errors.name = "Enter the name of the customer";
+    }
+
+    if (!values.phone) {
+        errors.phone = "Enter the customer's phone number(s)";
+    }
+
+    if (!values.branch) {
+        errors.branch = "Select the branch where the complaint was raised";
+    }
+
+    if (!values.dateLogged) {
+        errors.dateLogged = "Enter the date the complaint was raised";
+    }
+
+    if (!values.status) {
+        errors.status = "Select the status of the complaint";
+    }
+
+    if (!values.description) {
+        errors.description = "Enter the detials of the complaint";
+    }
+
+    return errors;
+}
 
 export default reduxForm({
     form: 'ComplaintsNewForm',
     fields: ['name', 'phone', 'email', 'branch', 'dateLogged', 'status', 'description', 
-    'resolverComments', 'verifierComments']
+    'resolverComments', 'verifierComments'],
+    validate
 }, 
 null, { createComplaint })(ComplaintsNew);
 

@@ -44,17 +44,22 @@ class ComplaintsUpdate extends Component {
             <div>
                 <h3 className="text-center">Update complaint</h3>
                 <form className="form-horizontal" onSubmit={handleSubmit(this.onSaveClick.bind(this))}>
-                    <div className="form-group">
+                    <div className={`form-group ${name.touched && name.invalid ? 'has-error' : '' }`}>
                         <label htmlFor="name" className="col-sm-2 control-label">Customer's Name</label>
                         <div className="col-sm-10">
                             <input type="text" className="form-control" id="name" {...name}  />
                         </div>
-                        
+                        <div className="text-help col-sm-10 col-sm-offset-2">
+                            {name.touched ? name.error : ""}
+                        </div>
                     </div>
-                    <div className="form-group">
+                    <div className={`form-group ${phone.touched && phone.invalid ? 'has-error' : '' }`}>
                         <label htmlFor="phone" className="col-sm-2 control-label">Phone(s)</label>
                         <div className="col-sm-10">
                             <input type="text" className="form-control" id="phone" {...phone} />
+                        </div>
+                        <div className="text-help col-sm-10 col-sm-offset-2">
+                            {phone.touched ? phone.error : ""}
                         </div>
                     </div>
                     <div className="form-group">
@@ -64,31 +69,43 @@ class ComplaintsUpdate extends Component {
                         </div>
                     </div>
 
-                    <div className="form-group">
+                    <div className={`form-group ${branch.touched && branch.invalid ? 'has-error' : '' }`}>
                         <label className="col-sm-2 control-label">Branch</label>
                         <div className="col-sm-10">
                             <DropdownList data={branches} {...branch} />
-                        </div>    
+                        </div>
+                        <div className="text-help col-sm-10 col-sm-offset-2">
+                            {branch.touched ? branch.error : ""}
+                        </div>      
                     </div>
-                    <div className="form-group">
+                    <div className={`form-group ${dateLogged.touched && dateLogged.invalid ? 'has-error' : '' }`}>
                         <label htmlFor="dateLogged" className="col-sm-2 control-label">Logging Date</label>
                         <div className="col-sm-10">
                             <input type="text" className="form-control" id="dateLogged" {...dateLogged}  />
                         </div>
+                        <div className="text-help col-sm-10 col-sm-offset-2">
+                            {dateLogged.touched ? dateLogged.error : ""}
+                        </div>
                     </div>
 
-                    <div className="form-group">
+                    <div className={`form-group ${status.touched && status.invalid ? 'has-error' : '' }`}>
                         <label className="col-sm-2 control-label">Status</label>
                         <div className="col-sm-10">
                             <DropdownList data={complaintStatus} {...status} />
-                        </div>    
+                        </div>
+                        <div className="text-help col-sm-10 col-sm-offset-2">
+                            {status.touched ? status.error : ""}
+                        </div>     
                     </div>
 
-                    <div className="form-group">
+                    <div className={`form-group ${description.touched && description.invalid ? 'has-error' : '' }`}>
                         <label htmlFor="description" className="col-sm-2 control-label">Description</label>
                         <div className="col-sm-10">
                             <textarea className="form-control" id="description" {...description}  />
                         </div>
+                        <div className="text-help col-sm-10 col-sm-offset-2">
+                            {description.touched ? description.error : ""}
+                        </div> 
                     </div>
                     <div className="form-group">
                         <label htmlFor="resolverComments" className="col-sm-2 control-label">Comments By Resolver</label>
@@ -124,11 +141,41 @@ function mapStateToProps(state) {
     };
 }
 
+function validate (values) {
+    const errors = {};
+
+    if (!values.name) {
+        errors.name = "Enter the name of the customer";
+    }
+
+    if (!values.phone) {
+        errors.phone = "Enter the customer's phone number(s)";
+    }
+
+    if (!values.branch) {
+        errors.branch = "Select the branch where the complaint was raised";
+    }
+
+    if (!values.dateLogged) {
+        errors.dateLogged = "Enter the date the complaint was raised";
+    }
+
+    if (!values.status) {
+        errors.status = "Select the status of the complaint";
+    }
+
+    if (!values.description) {
+        errors.description = "Enter the detials of the complaint";
+    }
+
+    return errors;
+}
 
 ComplaintsUpdate = reduxForm({
   form: 'ComplaintsUpdateForm',
   fields: ['name', 'phone', 'email', 'branch', 'status',  
-    'dateLogged', 'description', 'resolverComments', 'verifierComments' ]
+    'dateLogged', 'description', 'resolverComments', 'verifierComments' ],
+    validate
 }, mapStateToProps, { fetchComplaint, updateComplaint })(ComplaintsUpdate);
 
 export default ComplaintsUpdate;
