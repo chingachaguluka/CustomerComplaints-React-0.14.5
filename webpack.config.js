@@ -13,8 +13,25 @@ module.exports = {
       loader: 'babel',
       query: {
         presets: ['react', 'es2015', 'stage-1']
-      }
-    }]
+      },
+      
+    },
+    { 
+      test: /\.css$/, loader: "style!css" 
+    },
+    { 
+        test: /\.(jpe?g|png|gif)$/, 
+        loaders: ["file"] 
+    },
+    { 
+        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, 
+        loader: "url-loader?limit=10000&mimetype=application/font-woff" 
+    },
+    { 
+        test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, 
+        loader: "file-loader" 
+    },
+    ]
   },
   resolve: {
     extensions: ['', '.js', '.jsx']
