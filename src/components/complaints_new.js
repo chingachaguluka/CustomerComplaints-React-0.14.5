@@ -26,8 +26,8 @@ class ComplaintsNew extends Component {
 
     render() {
 
-        const { fields: {name, phone, email, branch, dateLogged, status, 
-            description, resolverComments, verifierComments}, handleSubmit, createComplaint } = this.props;
+        const { fields: {name, phone, email, branch, dateLogged, loggedBy, status, 
+            description}, handleSubmit, createComplaint } = this.props;
         const branches = ['Lilongwe', 'Limbe', 'Malangalanga', 'Mzuzu'];
         const complaintStatus = ['Unattended', 'Customer Contacted', 'Resolved', 'Closed']
 
@@ -80,11 +80,16 @@ class ComplaintsNew extends Component {
                             {dateLogged.touched ? dateLogged.error : ""}
                         </div> 
                     </div>
+                    <div className="form-group">
+                        <div className="col-sm-10">
+                            <input type="text" value="Customer Care Agent" className="form-control hidden" {...loggedBy} />
+                        </div>
+                    </div>
 
                     <div className={`form-group ${status.touched && status.invalid ? 'has-error' : '' }`}>
                         <label className="col-sm-2 control-label">Status</label>
                         <div className="col-sm-10">
-                            <DropdownList data={complaintStatus} {...status} />
+                            <DropdownList data={complaintStatus} defaultValue={"Unattended"} {...status} />
                         </div>
                         <div className="text-help col-sm-10 col-sm-offset-2">
                             {status.touched ? status.error : ""}
@@ -98,18 +103,6 @@ class ComplaintsNew extends Component {
                         <div className="text-help col-sm-10 col-sm-offset-2">
                             {description.touched ? description.error : ""}
                         </div> 
-                    </div>
-                    <div className="form-group">
-                        <label className="col-sm-2 control-label">Comments By Resolver</label>
-                        <div className="col-sm-10">
-                            <textarea className="form-control" {...resolverComments} />
-                        </div>
-                    </div>
-                    <div className="form-group">
-                        <label className="col-sm-2 control-label">Comments By Verifier</label>
-                        <div className="col-sm-10">
-                            <textarea className="form-control" {...verifierComments} />
-                        </div>
                     </div>
 
                     <div className="col-sm-9 col-sm-offset-2">                    
@@ -157,8 +150,7 @@ function validate (values) {
 
 export default reduxForm({
     form: 'ComplaintsNewForm',
-    fields: ['name', 'phone', 'email', 'branch', 'dateLogged', 'status', 'description', 
-    'resolverComments', 'verifierComments'],
+    fields: ['name', 'phone', 'email', 'branch', 'dateLogged', 'loggedBy', 'status', 'description'],
     validate
 }, 
 null, { createComplaint })(ComplaintsNew);
