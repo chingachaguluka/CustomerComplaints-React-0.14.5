@@ -30,8 +30,8 @@ class ComplaintsUpdate extends Component {
 
     render() {
         
-        const { fields: {name, phone, email, branch, dateLogged, status, description, 
-            resolverComments, verifierComments}, handleSubmit, complaint } = this.props;
+        const { fields: {name, phone, email, branch, dateLogged, loggedBy, status, description, 
+            resolverComments, resolvedBy, dateResolved, verifierComments, verifiedBy, dateVerified}, handleSubmit, complaint } = this.props;
         const branches = ['Lilongwe', 'Limbe', 'Malangalanga', 'Mzuzu'];
         const complaintStatus = ['Unattended', 'Customer Contacted', 'Resolved', 'Closed']
 
@@ -87,6 +87,11 @@ class ComplaintsUpdate extends Component {
                             {dateLogged.touched ? dateLogged.error : ""}
                         </div>
                     </div>
+                    <div className="form-group">
+                        <div className="col-sm-10">
+                            <input type="text" defaultValue="Customer Care Agent" className="form-control hidden" {...loggedBy} />
+                        </div>
+                    </div>
 
                     <div className={`form-group ${status.touched && status.invalid ? 'has-error' : '' }`}>
                         <label className="col-sm-2 control-label">Status</label>
@@ -114,9 +119,29 @@ class ComplaintsUpdate extends Component {
                         </div>
                     </div>
                     <div className="form-group">
+                        <div className="col-sm-10">
+                            <input type="text" className="form-control hidden" {...resolvedBy} />
+                        </div>
+                    </div>
+                    <div className="form-group">
+                        <div className="col-sm-10">
+                            <input type="text" className="form-control hidden" {...dateResolved} />
+                        </div>
+                    </div>
+                    <div className="form-group">
                         <label htmlFor="verifierComments" className="col-sm-2 control-label">Comments By Verifier</label>
                         <div className="col-sm-10">
                             <textarea className="form-control" id="verifierComments" {...verifierComments}  />
+                        </div>
+                    </div>
+                    <div className="form-group">
+                        <div className="col-sm-10">
+                            <input type="text" className="form-control hidden" {...verifiedBy} />
+                        </div>
+                    </div>
+                    <div className="form-group">
+                        <div className="col-sm-10">
+                            <input type="text" className="form-control hidden" {...dateVerified} />
                         </div>
                     </div>
 
@@ -173,8 +198,8 @@ function validate (values) {
 
 ComplaintsUpdate = reduxForm({
   form: 'ComplaintsUpdateForm',
-  fields: ['name', 'phone', 'email', 'branch', 'status',  
-    'dateLogged', 'description', 'resolverComments', 'verifierComments' ],
+  fields: ['name', 'phone', 'email', 'branch', 'status',  'loggedBy', 'dateLogged', 'description', 
+    'resolverComments', 'dateResolved', 'resolvedBy', 'verifierComments', 'verifiedBy', 'dateVerified'],
     validate
 }, mapStateToProps, { fetchComplaint, updateComplaint })(ComplaintsUpdate);
 
